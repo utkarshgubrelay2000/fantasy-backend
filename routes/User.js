@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var user=require('../controller/userController')
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.send('Welcome to RentApp');

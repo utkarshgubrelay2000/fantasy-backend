@@ -1,6 +1,7 @@
 const userModel = require("../module/userModel");
 const jwt = require("jsonwebtoken");
-const bcryptjs=require('bcryptjs')
+const bcryptjs=require('bcryptjs');
+var validate=require('validate.js')
 /////////------ User SignUp ----////////////////
 exports.Signup = (req, res) => {
   const { name, email, mobileNumber, password, profileUrl, address } = req.body;
@@ -9,6 +10,36 @@ exports.Signup = (req, res) => {
    * profileUrl:string,
    * password:string,
    * address:Object */
+  let validation = validate(req.body, {
+    name: {
+      presence: true,
+      format: {
+        pattern: "^([a-zA-z]*\\s*)*[a-zA-z]$",
+        message:
+          "Enter full name and it can only contain alphabets and space in between",
+      },
+    },
+    email: {
+      presence: true,
+      email: true,
+    },
+    password: {
+      presence: true,
+      length: { minimum: 6, message: "password must be 6 characters long" },
+    },
+    mobileNumber: {
+      presence: true,
+    },
+    profileUrl:{
+      presence:true
+    }
+  });
+
+  if (validation) {
+    res.status(400).json({ error: validation });
+    return console.log(validation);
+  }
+   else{
   userModel.findOne({ email: email }).then((user) => {
     if (user) {
       res.status(404).json({ error: "email Address is already taken" });
@@ -35,10 +66,26 @@ exports.Signup = (req, res) => {
         
     })}
   });
-};
+ }};
 /////////------ User SignIn ----////////////////
 exports.Signin = (req, res) => {
   const { email, password } = req.body;
+  let validation = validate(req.body, {
+    email: {
+      presence: true,
+    
+    },
+    password: {
+      presence: true,
+    },
+  });
+
+  if (validation) {
+    res.status(400).json({ error: validation });
+    return console.log(validation);
+  }
+else{
+
   userModel.findOne({ email: email }).then((user) => {
     if (user) {
      // console.log(password,user.password)
@@ -65,7 +112,7 @@ exports.Signin = (req, res) => {
         .json({ error: "User not found of " + email + " address" });
     }
   });
-};
+}};
 exports.getAllUser=(req,res)=>{
   userModel.find({},{_id:0}).then(user=>{
     res.json(user)
