@@ -1,4 +1,40 @@
-# RentApp -->>>>>>>
+# RentApp
+## Requirement
+node js
+git
+
+## Common setup
+
+Clone the repo and install the dependencies.
+
+```bash
+git clone https://github.com/contentful/the-example-app.nodejs.git
+cd the-example-app.nodejs
+```
+
+```bash
+npm install
+```
+
+## Steps for read-only access
+
+To start the express server, run the following
+
+```bash
+npm run start:dev
+```
+
+Open [http://localhost:4500](http://localhost:4500) and take a look around.
+
+Use the package manager [npm] to install dependencies.
+example
+```bash
+npm install express
+```
+
+
+
+
 ## Api's-->>>>>
 
 
