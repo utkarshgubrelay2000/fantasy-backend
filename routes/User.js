@@ -6,6 +6,12 @@ router.get('/', function(req, res, next) {
   res.send('Welcome to RentApp');
 });
 
+/*    Get Request  of User.... All the Get Request of Users */
+router.get("/getAllUser", user.getAllUser, err => {
+  console.log("error in signup", err)
+})
+
+
 /*    Post Request  for User Auth */
 /* //////////    Signup         /////////////*/
 router.post("/signup", user.Signup, err => {
