@@ -11,7 +11,8 @@ Api's-->>>>>
     pincode:{   type:Number  }, Adresss_line_1:{   type:String }, Adresss_line_2:{   type:String }, City:{   type:String }, State:{   type:String }, Country:{
       type:String
     }
-  },,profileImg:String ,MobileNumber:number}..
+  },
+  profileImg:String ,MobileNumber:number}
   Response:"Successfully user saved"
   important:validation applied 
   //////////////////////////////////////////////////
