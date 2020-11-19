@@ -3,6 +3,15 @@ Api's-->>>>>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+SignIn->
+     Request type-: Post,
+     Url:url/signin,
+      Details:  find email in UserSchema and then it  compare password with bcrypt.js..if password matchs then it send response as code:success and token which is generarted with the help of jsonwebtoken.
+      Body-include-: {email:string,password:string,}
+  Response:{code:'signed in successfully',token:jwttoken}
+
+  important:validation applied 
+
 
      SignUp->
      Request type-: Post,
@@ -17,13 +26,5 @@ Api's-->>>>>
   important:validation applied 
   //////////////////////////////////////////////////
   
-     SignIn->
-     Request type-: Post,
-     Url:url/signin,
-     Body-include-: {email:string,password:string,}
-  Response:{code:'signed in successfully',token:jwttoken}
-  Details:  find email in UserSchema and then it  compare password with bcrypt.js..if password matchs then it send response as code:success and token which is generarted with the help of jsonwebtoken.
-  important:validation applied 
-
-
+     
 
