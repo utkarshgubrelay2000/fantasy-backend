@@ -1,5 +1,5 @@
-const User = require('../module/userModel');
 const userModel=require('../module/userModel')
+/////////------ User SignUp ----////////////////
 
 exports.Signup = (req, res) => {
 const {name,email,mobileNumber,password,profileUrl}=req.body
@@ -20,6 +20,7 @@ else{
 }
 })
 };
+/////////------ User SignIn ----////////////////
 exports.Signin = (req, res) => {
     const {email,password}=req.body
 userModel.findOne({email:email}).then(user=>{

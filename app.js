@@ -4,7 +4,7 @@ const cors = require("cors")
 const mongoose=require('mongoose')
 require("dotenv").config({path:"./config/config.env"})
 
-var Router = require('./routes/User');
+var Router = require('./routes/user');
 mongoose.connect(process.env.MONGO_URL,{
   useNewUrlParser:true,
   useUnifiedTopology:true
