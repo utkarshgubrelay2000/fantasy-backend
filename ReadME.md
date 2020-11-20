@@ -52,14 +52,55 @@ npm install express
    ###### Request type-: Post,
    ######  Url:url/signup,
    ######  Body-include-: {email:string,password:string,address:Object {
-    pincode:{   type:Number  }, Adresss_line_1:{   type:String }, Adresss_line_2:{   type:String }, City:{   type:String }, State:{   type:String }, Country:{
-      type:String
-    }
-  },
+ ######    pincode:{   type:Number  }, Adresss_line_1:{   type:String }, Adresss_line_2:{   type:String }, City:{   type:String }, State:{   type:String }, ###### Country:{
+ ######      type:String
+ ######    }
+ ######  },
   ###### profileImg:String ,MobileNumber:number}
   ###### Response:"Successfully user saved"
   ##### important:validation applied 
-  //////////////////////////////////////////////////
+
+   ####  EditUserProfile->
+   ###### Request type-: Post,
+   ######  Url:url/editUserProfile,
+   ######  Body-include-: {email:string,password:string,address:Object {
+  ######  pincode:{   type:Number  }, Adresss_line_1:{   type:String }, Adresss_line_2:{   type:String }, City:{   type:String }, State:{   type:String },######Country:{
+   ######   type:String
+  ######  }
+ ###### },
+  ###### profileImg:String ,MobileNumber:number}
+  ###### Response:"made changes"
+  ##### important:validation applied 
+  ###### details- all the user details are passed.. and which are not changed remains unchanged
   
+
+  ## getAllUsers
+
+  ###### Request type-: Get,
+  ######  Url:url/getAllUsers,
+  ###### Response:{ users as Array }
+  ###### users and send in the form of array  as response
+  ##### important:validation applied 
+  
+  ## getAllProducts
+
+  ###### Request type-: Get,
+  ######  Url:url/getAllProducts,
+  ###### Response:{ products as Array }.. 
+  ###### sorted from latest uploaded .. and only verfied products which are verfied by admin..(access admin)
+ 
+  ## getAllProducts
+
+  ###### Request type-: Get,
+  ######  Url:url/getAllProducts,
+  ###### Response:{ products as Array }.. 
+  ###### sorted from latest uploaded .. and only verfied products which are verfied by admin..(access admin)
+
+  ## getAllCatgories
      
+  ###### Request type-: Get,
+  ######  Url:url/getAllProducts,
+  ###### Response:{ category as Array }.. 
+  ###### aggregate function of mongodb is used to take categories of products..
+
 

@@ -67,28 +67,28 @@ exports.Signup = (req, res) => {
     })}
   });
  }};
-/////////------ User SignIn ----////////////////
-exports.Signin = (req, res) => {
+ /////////------ User SignIn ----////////////////
+ exports.Signin = (req, res) => {
   const { email, password } = req.body;
   let validation = validate(req.body, {
     email: {
       presence: true,
-    
+      
     },
     password: {
       presence: true,
     },
   });
-
+  
   if (validation) {
     res.status(400).json({ error: validation });
     return console.log(validation);
   }
-else{
-
-  userModel.findOne({ email: email }).then((user) => {
-    if (user) {
-     // console.log(password,user.password)
+  else{
+    
+    userModel.findOne({ email: email }).then((user) => {
+      if (user) {
+        // console.log(password,user.password)
         bcryptjs
         .compare(password, user.password)
         .then((ifSame) => {
@@ -106,17 +106,54 @@ else{
         .catch((err) => {
           console.log("error in comparing password", err);
         });
-    } else {
-      res
+      } else {
+        res
         .status(404)
         .json({ error: "User not found of " + email + " address" });
-    }
-  });
-}};
-exports.getAllUser=(req,res)=>{
+      }
+    });
+  }};
+  
+/////////------  getAllUser ----//////////////// 
+exports.getAllUsers=(req,res)=>{
   userModel.find({},{_id:0}).then(user=>{
     res.json(user)
   }).catch(err=>{
     res.status(404).json('Something went wrong'+ err)
   })
 }
+  
+/////////------  getUserById post request ----////////////////
+exports.getUserByUserId=(req,res)=>{
+  const {userId}=req.body
+  // console.log(userId)
+  userModel.findOne({_id:userId}).then(user=>{
+    if(user){
+      res.json(user)
+    }
+    else{
+      res.status(404).json({error:'user not found .. something wrong with userId'})
+    }
+  }).catch(err=>{
+    res.json({})
+  })
+}
+
+/////////------  getEdit User Profile ----////////////////
+exports.editUserProfile = (req, res) => {
+                      const { _id,newname, newemail, newmobileNumber,  newprofileUrl, newaddress } = req.body;
+                      /**  name:string, 
+                       * mobileNumber:number,
+                       * profileUrl:string,
+                       * password:string,
+                       * address:Object */
+                    
+                      userModel.findOneAndUpdate({ _id:_id },{name:newname,email:newemail,address:newaddress,mobileNumber:newmobileNumber,profileImg:newprofileUrl,})
+                      .then((user) => {
+                        if (user) {
+                          res.json({ message:'User Details Updated' });
+                        } 
+                      }).catch(err=>{
+                        res.status(404).json({error:"Something went wrong"})
+                      });
+                     };
