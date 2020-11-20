@@ -89,13 +89,6 @@ npm install express
   ###### Response:{ products as Array }.. 
   ###### sorted from latest uploaded .. and only verfied products which are verfied by admin..(access admin)
  
-  ## getAllProducts
-
-  ###### Request type-: Get,
-  ######  Url:url/getAllProducts,
-  ###### Response:{ products as Array }.. 
-  ###### sorted from latest uploaded .. and only verfied products which are verfied by admin..(access admin)
-
   ## getAllCatgories
      
   ###### Request type-: Get,
