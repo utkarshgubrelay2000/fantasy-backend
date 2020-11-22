@@ -26,15 +26,6 @@ npm run start:dev
 
 Open [http://localhost:4500](http://localhost:4500) and take a look around.
 
-Use the package manager [npm] to install dependencies.
-example
-```bash
-npm install express
-```
-
-
-
-
 ## Api's-->>>>>
 
 
@@ -101,6 +92,30 @@ npm install express
   ###### Request type-: Get,
   ######  Url:url/getAllProducts,
   ###### Response:{ category as Array }.. 
+  ###### aggregate function of mongodb is used to take categories of products..
+
+  ## getProductByProductId
+     
+  ###### Request type-: Get,
+  ######  Url:url/getProductByProductId/:productId,
+  ######  params:{productId},
+  ###### Response:{ response as single product }.. 
+  ###### aggregate function of mongodb is used to take categories of products..
+
+  ## getProductByUserId
+     
+  ###### Request type-: Get,
+  ######  Url:url/getProductByUserId/:userId,
+  ######  params:{userId},
+  ###### Response:{ products of particular user as Array }.. 
+  ###### aggregate function of mongodb is used to take categories of products..
+
+  ## getProductByCategory
+     
+  ###### Request type-: Get,
+  ######  Url:url/getProductByCategory/:category,
+  ######  params:{category},
+  ###### Response:{ products of particular user as Array }.. 
   ###### aggregate function of mongodb is used to take categories of products..
 
 
