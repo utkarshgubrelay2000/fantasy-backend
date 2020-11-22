@@ -115,7 +115,16 @@ exports.getCategories=(req,res)=>{
     }
  exports.getProductByUserId=(req,res)=>{
    console.log(req.params.userId)
-   productSchema.find({userId:req.params.userId,verfied:true}).then(product=>{
+   productSchema.find({userId:req.params.userId,verified:true}).then(product=>{
+     res.json(product)
+   }).catch(err=>{
+     res.status(400).json({error:err})
+   })
+ }
+ exports.getProductByCategory=(req,res)=>{
+   console.log(req.params.category)
+   const category=req.params.category
+   productSchema.find({category:category,verified:true}).then(product=>{
      res.json(product)
    }).catch(err=>{
      res.status(400).json({error:err})
