@@ -121,6 +121,14 @@ exports.getCategories=(req,res)=>{
      res.status(400).json({error:err})
    })
  }
+ exports.getProductByProductId=(req,res)=>{
+  const {productId}=req.params
+   productSchema.find({_id:productId}).then(product=>{
+     res.json(product)
+   }).catch(err=>{
+     res.status(400).json({error:err})
+   })
+ }
  exports.getProductByCategory=(req,res)=>{
    console.log(req.params.category)
    const category=req.params.category

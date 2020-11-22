@@ -56,10 +56,13 @@ router.get("/getProductByUserId/:userId",product.getProductByUserId,err=>{
   console.log("error is getting product by userId",err)
 })
 
-/* ////   All PRODUCT CONTROLLER POST REQUEST */
 router.get('/getProductByCategory/:category',product.getProductByCategory,err=>{
   console.log('error in getting product by category',err)
 })
+router.get('/getProductByProductId/:productId',product.getProductByProductId,err=>{
+  console.log('error in getting product by category',err)
+})
+/* ////   All PRODUCT CONTROLLER POST REQUEST */
 router.post("/postProduct", product.postProductAd, (err) => {
   console.log("error in getting product details", err);
 });
