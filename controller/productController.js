@@ -11,7 +11,7 @@ verified- is false until admin accepts the orders
 }
 */
 exports.postProductAd = (req, res) => {
-  console.log('h')
+  //console.log('h')
   const {
     email,
     category,
@@ -47,7 +47,7 @@ exports.postProductAd = (req, res) => {
     res.status(400).json({ error: validation });
   } else {
     userModel
-      .findById({ _id: UserId })
+      .findById({ _id: userId })
       .then((user) => {
         if (!user) {
           res.status(404).json({ error: "User not found Can not add Product" });
@@ -115,7 +115,7 @@ exports.getCategories=(req,res)=>{
     }
  exports.getProductByUserId=(req,res)=>{
    console.log(req.params.userId)
-   productSchema.find({userId:req.params.userId}).then(product=>{
+   productSchema.find({userId:req.params.userId,verfied:true}).then(product=>{
      res.json(product)
    }).catch(err=>{
      res.status(400).json({error:err})
