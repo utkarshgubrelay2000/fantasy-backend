@@ -141,12 +141,34 @@ exports.getUserById=(req,res)=>{
 
 /////////------  getEdit User Profile ----////////////////
 exports.editUserProfile = (req, res) => {
-                      const { _id,newname, newemail, newmobileNumber,  newprofileUrl, newaddress } = req.body;
-                      /**  name:string, 
-                       * mobileNumber:number,
-                       * profileUrl:string,
-                       * password:string,
-                       * address:Object */
+                      const { _id,newName, newEmail, newMobileNumber,  newProfileUrl, newAddress } = req.body;
+                      let validation = validate(req.body, {
+                        newName: {
+                          presence: true,
+                          format: {
+                            pattern: "^([a-zA-z]*\\s*)*[a-zA-z]$",
+                            message:
+                              "Enter full name and it can only contain alphabets and space in between",
+                          },
+                        },
+                        newEmail: {
+                          presence: true,
+                          email: true,
+                        },
+                      
+                        newMobileNumber: {
+                          presence: true,
+                        },
+                        newProfileUrl:{
+                          presence:true
+                        }
+                      });
+                    
+                      if (validation) {
+                        res.status(400).json({ error: validation });
+                        return console.log(validation);
+                      }
+                      else{
                     userModel.findOne({_id:_id}).then(foundUser=>{
                       if(foundUser){
                       userModel.findOneAndUpdate({ _id:_id },{name:newname,email:newemail,address:newaddress,mobileNumber:newmobileNumber,profileImg:newprofileUrl,})
@@ -162,4 +184,4 @@ exports.editUserProfile = (req, res) => {
                         res.status(404).json({error:'user not found'})
                       }
                     })
-                     };
+                      }   };

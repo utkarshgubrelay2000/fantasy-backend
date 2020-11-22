@@ -1,16 +1,10 @@
 const userModel = require("../model/userModel");
 const productSchema = require("../model/productModel");
 var validate = require("validate.js");
-/*
-/////////////////////post Ad controller./////////////
-body:{  Email,  category,  Images,  UserId,  mobileNumber,  name,  Price} 
-model data:{
-category,  Images,  mobileNumber, productName, Email,  UserId,  Verified, Price, Date,
-}
-verified- is false until admin accepts the orders
-}
-*/
+
+/// POST AD.. REQUIRES DETAILS{BODY}
 exports.postProductAd = (req, res) => {
+  /// add address field ..  for TESTING NOT ADDED
   //console.log('h')
   const {
     email,
@@ -20,6 +14,7 @@ exports.postProductAd = (req, res) => {
     mobileNumber,
     name,
     price,
+    
   } = req.body;
   let validation = validate(req.body, {
     name: {
@@ -79,6 +74,8 @@ exports.postProductAd = (req, res) => {
     });
 }
 };
+/// GET ALL PRODUCTS WHICH ARE VERIFIED
+
 exports.getAllProducts=(req,res)=>{
     productSchema.find({verified:true}).sort({_id:-1}).then(allProducts=>{
             res.json(allProducts)
@@ -89,6 +86,7 @@ exports.getAllProducts=(req,res)=>{
     
 }
 exports.getCategories=(req,res)=>{
+  /// AGGREAGATE FUNCTION WILL HELP US GET SINGLE SINGLE CATEGORIES.. EXAMPLE PRODUCT A AND B HAVE CATEORY CAR THEN IT WILL ONLY GIVE US ONE CATEGORY.. COMMON
     productSchema.aggregate([
         {
             $group: {
@@ -114,8 +112,9 @@ exports.getCategories=(req,res)=>{
         })
     }
  exports.getProductByUserId=(req,res)=>{
-   console.log(req.params.userId)
-   productSchema.find({userId:req.params.userId,verified:true}).then(product=>{
+   /// GET ALL PRODUCTS BY USERID{PARTICULAR USER} AND IT SHOULD BE VERIFIED
+  const {userId} =req.params
+   productSchema.find({userId:userId,verified:true}).then(product=>{
      res.json(product)
    }).catch(err=>{
      res.status(400).json({error:err})
