@@ -1,4 +1,4 @@
-const userModel = require("../module/userModel");
+const userModel = require("../model/userModel");
 const jwt = require("jsonwebtoken");
 const bcryptjs=require('bcryptjs');
 var validate=require('validate.js')
@@ -124,9 +124,9 @@ exports.getAllUsers=(req,res)=>{
 }
   
 /////////------  getUserById post request ----////////////////
-exports.getUserByUserId=(req,res)=>{
-  const {userId}=req.body
-  // console.log(userId)
+exports.getUserById=(req,res)=>{
+  const {userId}=req.params
+   console.log(userId)
   userModel.findOne({_id:userId}).then(user=>{
     if(user){
       res.json(user)
