@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const ProductSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   productName: {
     type: String,
     required: true,
@@ -28,15 +28,15 @@ const ProductSchema = new mongoose.Schema({
       type:String
     }
   },
-  Price:{
+  price:{
     required:true,
     type:Number
   },
- Images:{
+ images:{
      required:true,
      type:Array
  },
- UserId:{
+ userId:{
      required:true,
      type:Object
  },
@@ -44,14 +44,14 @@ const ProductSchema = new mongoose.Schema({
      required:true,
      type:Number
  },
- Email:{
+ email:{
      required:true,
      type:String
  },
- Verified:{
+ verified:{
      type:Boolean,   
  },
- Date:{
+ date:{
    required:true,
    type:Date
  }
@@ -59,5 +59,5 @@ const ProductSchema = new mongoose.Schema({
  
 });
 
-const Products = mongoose.model("Product", ProductSchema);
+const Products = mongoose.model("Product", productSchema);
 module.exports = Products;
