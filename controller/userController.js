@@ -171,7 +171,7 @@ exports.editUserProfile = (req, res) => {
                       else{
                     userModel.findOne({_id:_id}).then(foundUser=>{
                       if(foundUser){
-                      userModel.findOneAndUpdate({ _id:_id },{name:newname,email:newemail,address:newaddress,mobileNumber:newmobileNumber,profileImg:newprofileUrl,})
+                      userModel.findOneAndUpdate({ _id:_id },{name:newName,email:newEmail,address:newAddress,mobileNumber:newMobileNumber,profileImg:newProfileUrl,})
                       .then((user) => {
                         if (user) {
                           res.json({ message:'User Details Updated' });
