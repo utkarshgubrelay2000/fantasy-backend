@@ -1,5 +1,5 @@
-const userModel = require("../module/userModel");
-const productSchema = require("../module/productSchema");
+const userModel = require("../model/userModel");
+const productSchema = require("../model/productModel");
 var validate = require("validate.js");
 /*
 /////////////////////post Ad controller./////////////
@@ -13,13 +13,13 @@ verified- is false until admin accepts the orders
 exports.postProductAd = (req, res) => {
   console.log('h')
   const {
-    Email,
+    email,
     category,
-    Images,
-    UserId,
+    images,
+    userId,
     mobileNumber,
     name,
-    Price,
+    price,
   } = req.body;
   let validation = validate(req.body, {
     name: {
@@ -30,15 +30,15 @@ exports.postProductAd = (req, res) => {
           "Enter full name and it can only contain alphabets and space in between",
       },
     },
-    Email: {
+    email: {
       presence: true,
       email: true,
     },
     mobileNumber: {
       presence: true,
-      length: { minimum: 10, maximum: 13, message: "Not valid" },
+      length: { minimum: 10, message: "Not valid" },
     },
-    Price: {
+    price: {
       presence: true,
     },
   });
@@ -55,14 +55,14 @@ exports.postProductAd = (req, res) => {
           const today = new Date();
           const newProduct = new productSchema({
             category: category,
-            Images: Images,
+            images: images,
             mobileNumber: mobileNumber,
             productName: name,
-            Email: Email,
-            UserId: UserId,
-            Verified: false,
-            Price: Price,
-            Date:
+            email: email,
+            userId: userId,
+            verified: false,
+            price: price,
+            date:
               today.getFullYear() +
               "-" +
               (today.getMonth() + 1) +
@@ -80,19 +80,8 @@ exports.postProductAd = (req, res) => {
 }
 };
 exports.getAllProducts=(req,res)=>{
-    productSchema.find({}).sort({_id:-1}).then(allProducts=>{
-        if(allProducts){
-          let productArray=[];
-          allProducts.map(items=>{
-if(items.Verified){
-  productArray.push(items)
-}
-          })
-            res.json(productArray)
-        }
-        else{
-            res.status(404).json({error:"it seens like your product database is empty"})
-        }
+    productSchema.find({verified:true}).sort({_id:-1}).then(allProducts=>{
+            res.json(allProducts)
     }).catch(err=>{
         res.status(404).json({ error: "something went wrong" + err.message });
         
@@ -103,11 +92,18 @@ exports.getCategories=(req,res)=>{
     productSchema.aggregate([
         {
             $group: {
-                _id: { Category: "$category"},
+                _id: { Category: "$category", verified:"$verified" },
             }
         }]).sort({_id:-1}).then(categories=>{
-            if(categories){
-               res.json(categories)
+          if(categories){
+          let verfiedCategories=[]
+          categories.map(foundCat=>{
+            if(foundCat._id.verified){
+              verfiedCategories.push(foundCat)
+            }
+
+          })
+               res.json(verfiedCategories)
             }
             else{
                 res.status(404).json({error:"categories not found"})
@@ -117,3 +113,11 @@ exports.getCategories=(req,res)=>{
             res.status(404).json({ error: "something went wrong" + err.message });
         })
     }
+ exports.getProductByUserId=(req,res)=>{
+   console.log(req.params.userId)
+   productSchema.find({userId:req.params.userId}).then(product=>{
+     res.json(product)
+   }).catch(err=>{
+     res.status(400).json({error:err})
+   })
+ }
