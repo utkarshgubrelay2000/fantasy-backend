@@ -147,13 +147,19 @@ exports.editUserProfile = (req, res) => {
                        * profileUrl:string,
                        * password:string,
                        * address:Object */
-                    
+                    userModel.findOne({_id:_id}).then(foundUser=>{
+                      if(foundUser){
                       userModel.findOneAndUpdate({ _id:_id },{name:newname,email:newemail,address:newaddress,mobileNumber:newmobileNumber,profileImg:newprofileUrl,})
                       .then((user) => {
                         if (user) {
                           res.json({ message:'User Details Updated' });
                         } 
-                      }).catch(err=>{
+                      })
+                      .catch(err=>{
                         res.status(404).json({error:"Something went wrong"})
-                      });
+                      }); }
+                      else{
+                        res.status(404).json({error:'user not found'})
+                      }
+                    })
                      };
