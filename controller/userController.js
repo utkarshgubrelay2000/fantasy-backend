@@ -42,9 +42,12 @@ exports.Signup = (req, res) => {
       });
       newUser
         .save()
-        .then(() => {
-          res.json("user saved successfully");
-        })
+        .then((user) => {
+          const token = jwt.sign({ secretId: user._id }, process.env.JWT_SECRET);
+          res.json({
+            code: "SignUp Successfull ",
+            token:token
+          }); })
         .catch((err) => {
           //   console.log(err.message)
           res.status(404).json({ error: err.message });
@@ -149,8 +152,7 @@ exports.editUserProfile = (req, res) => {
                         newProfileUrl:{
                           presence:true
                         }
-                      });
-                    
+                      });                    
                       if (validation) {
                         res.status(400).json({ error: validation });
                         return console.log(validation);
