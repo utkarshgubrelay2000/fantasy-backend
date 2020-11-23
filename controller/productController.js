@@ -122,7 +122,7 @@ exports.getCategories=(req,res)=>{
  }
  exports.getProductByProductId=(req,res)=>{
   const {productId}=req.params
-   productSchema.find({_id:productId}).then(product=>{
+   productSchema.find({_id:productId,verified:true}).then(product=>{
      res.json(product)
    }).catch(err=>{
      res.status(400).json({error:err})
