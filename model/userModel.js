@@ -34,10 +34,8 @@ const userSchema = new mongoose.Schema({
   },
   mobileNumber: {
     type: Number,
-    required: true,
   },
   profileImg:{
-      required:true,
       type:String
   }
 

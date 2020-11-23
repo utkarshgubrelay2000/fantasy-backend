@@ -4,7 +4,7 @@ const bcryptjs=require('bcryptjs');
 var validate=require('validate.js')
 /////////------ User SignUp ----////////////////
 exports.Signup = (req, res) => {
-  const { name, email, mobileNumber, password, profileUrl, address } = req.body;
+  const { name, email, password } = req.body;
   /**  name:string, 
    * mobileNumber:number,
    * profileUrl:string,
@@ -23,16 +23,6 @@ exports.Signup = (req, res) => {
       presence: true,
       email: true,
     },
-    password: {
-      presence: true,
-      length: { minimum: 6, message: "password must be 6 characters long" },
-    },
-    mobileNumber: {
-      presence: true,
-    },
-    profileUrl:{
-      presence:true
-    }
   });
 
   if (validation) {
@@ -47,15 +37,12 @@ exports.Signup = (req, res) => {
         bcryptjs.hash(password, 12).then((hashedpassword) => {   
       let newUser = new userModel({
         email: email,
-        profileImg: profileUrl,
         password: hashedpassword,
-        mobileNumber: mobileNumber,
         name: name,
-        address: address,
       });
       newUser
         .save()
-        .then((user) => {
+        .then(() => {
           res.json("user saved successfully");
         })
         .catch((err) => {
