@@ -183,5 +183,7 @@ exports.editUserProfile = (req, res) => {
                       else{
                         res.status(404).json({error:'user not found'})
                       }
+                    }).catch(res=>{
+                      res.status(400).json({error:'something went wrong',err})
                     })
                       }   };

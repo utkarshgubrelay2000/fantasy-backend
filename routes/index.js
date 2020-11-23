@@ -35,7 +35,7 @@ router.post("/signin", user.Signin, (err) => {
 /// All  USER CONTROLLER PUT REQUEST
 
 // Edit user profile
-router.patch("/editUserProfile/", user.editUserProfile, (err) => {
+router.patch("/editUserProfile", user.editUserProfile, (err) => {
   console.group("error in editing  user ", err);
 });
 
