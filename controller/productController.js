@@ -17,14 +17,6 @@ exports.postProductAd = (req, res) => {
     
   } = req.body;
   let validation = validate(req.body, {
-    name: {
-      presence: true,
-      format: {
-        pattern: "^([a-zA-z]*\\s*)*[a-zA-z]$",
-        message:
-          "Enter full name and it can only contain alphabets and space in between",
-      },
-    },
     email: {
       presence: true,
       email: true,
