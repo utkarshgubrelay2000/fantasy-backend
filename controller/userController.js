@@ -192,3 +192,25 @@ res.json("saved")
       res.status(404).json(err)
     })
   }
+  exports.addAddress=(req,res)=>{
+    const {pincode,state,city,address,id}=req.body
+    let Address={
+      Pincode:pincode,
+      City:city,
+      State:state,
+      Country:'INDIA',
+      Addresss_line_1:address
+    }
+    userModel.findOne({_id:id}).then(foundUser=>{
+      if(foundUser){
+foundUser.address=Address
+foundUser.save()
+res.json("saved")
+      }
+      else{
+        res.status(404).json('user not found')
+      }
+    }).catch(err=>{
+      res.status(404).json(err)
+    })
+  }

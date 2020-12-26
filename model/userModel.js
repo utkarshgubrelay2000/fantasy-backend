@@ -8,10 +8,7 @@ const userSchema = new mongoose.Schema({
     pincode:{
       type:Number,
     },
-    Adresss_line_1:{
-      type:String
-    },
-    Adresss_line_2:{
+    Addresss_line_1:{
       type:String
     },
     City:{

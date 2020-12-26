@@ -39,6 +39,7 @@ router.patch("/editUserProfile", user.editUserProfile, (err) => {
   console.group("error in editing  user ", err);
 });
 router.put('/addMobileNumber',user.addMobileNumber)
+router.put('/addAddress',user.addAddress)
 
 /// All  PRODUCT CONTROLLER GET REQUEST
 
