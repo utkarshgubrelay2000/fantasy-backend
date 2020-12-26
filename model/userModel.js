@@ -37,7 +37,8 @@ const userSchema = new mongoose.Schema({
   },
   profileImg:{
       type:String
-  }
+  },
+  uid:{type:String}
 
      /*               ResetToken: {
                         type: String,

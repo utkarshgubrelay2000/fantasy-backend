@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema({
   },
   category:[ {
   subCategory:{type: String}
-  }],
+  }], RentalType:{type:String},
   content:{type:String},
   address: {
     pincode:{

@@ -38,6 +38,7 @@ router.post("/signin", user.Signin, (err) => {
 router.patch("/editUserProfile", user.editUserProfile, (err) => {
   console.group("error in editing  user ", err);
 });
+router.put('/addMobileNumber',user.addMobileNumber)
 
 /// All  PRODUCT CONTROLLER GET REQUEST
 

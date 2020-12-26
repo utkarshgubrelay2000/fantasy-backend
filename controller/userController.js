@@ -4,7 +4,7 @@ const bcryptjs=require('bcryptjs');
 var validate=require('validate.js')
 /////////------ User SignUp ----////////////////
 exports.Signup = (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password,uid } = req.body;
   /**  name:string, 
    * mobileNumber:number,
    * profileUrl:string,
@@ -39,6 +39,7 @@ exports.Signup = (req, res) => {
         email: email,
         password: hashedpassword,
         name: name,
+        uid:uid
       });
       newUser
         .save()
@@ -176,3 +177,18 @@ exports.editUserProfile = (req, res) => {
                       res.status(400).json({error:'something went wrong',err})
                     })
                       }   };
+  exports.addMobileNumber=(req,res)=>{
+    const {number,id}=req.body
+    userModel.findOne({_id:id}).then(foundUser=>{
+      if(foundUser){
+foundUser.mobileNumber=number
+foundUser.save()
+res.json("saved")
+      }
+      else{
+        res.status(404).json('user not found')
+      }
+    }).catch(err=>{
+      res.status(404).json(err)
+    })
+  }
