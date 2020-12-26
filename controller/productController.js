@@ -14,6 +14,7 @@ exports.postProductAd = (req, res) => {
     mobileNumber,
     name,
     price,
+    content
     
   } = req.body;
   let validation = validate(req.body, {
@@ -49,6 +50,7 @@ exports.postProductAd = (req, res) => {
             userId: userId,
             verified: false,
             price: price,
+            content:content,
             date:
               today.getFullYear() +
               "-" +
