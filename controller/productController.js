@@ -1,7 +1,7 @@
 const userModel = require("../model/userModel");
 const productSchema = require("../model/productModel");
 var validate = require("validate.js");
-const category = require("../../RentAppAdmin/model/categoryModel");
+const category = require("../model/categoryModel");
 
 /// POST AD.. REQUIRES DETAILS{BODY}
 exports.postProductAd = (req, res) => {
