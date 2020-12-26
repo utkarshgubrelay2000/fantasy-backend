@@ -1,6 +1,7 @@
 const userModel = require("../model/userModel");
 const productSchema = require("../model/productModel");
 var validate = require("validate.js");
+const category = require("../../RentAppAdmin/model/categoryModel");
 
 /// POST AD.. REQUIRES DETAILS{BODY}
 exports.postProductAd = (req, res) => {
@@ -82,26 +83,9 @@ exports.getAllProducts=(req,res)=>{
 }
 exports.getCategories=(req,res)=>{
   /// AGGREAGATE FUNCTION WILL HELP US GET SINGLE SINGLE CATEGORIES.. EXAMPLE PRODUCT A AND B HAVE CATEORY CAR THEN IT WILL ONLY GIVE US ONE CATEGORY.. COMMON
-    productSchema.aggregate([
-        {
-            $group: {
-                _id: { Category: "$category", verified:"$verified" },
-            }
-        }]).sort({_id:-1}).then(categories=>{
-          if(categories){
-          let verfiedCategories=[]
-          categories.map(foundCat=>{
-            if(foundCat._id.verified){
-              verfiedCategories.push(foundCat)
-            }
-
-          })
-               res.json(verfiedCategories)
-            }
-            else{
-                res.status(404).json({error:"categories not found"})
-            }
-        }).catch(err=>{
+    category.find({}).sort({_id:-1}).then(found=>{
+      res.json(found)
+    }).catch(err=>{
 
             res.status(404).json({ error: "something went wrong" + err.message });
         })
