@@ -45,7 +45,7 @@ exports.postProductAd = (req, res) => {
           const today = new Date();
           const newProduct = new productSchema({
             category: category,
-            subCategory:category,
+            subCategory:subCategory,
             images: images,
             mobileNumber: mobileNumber,
             productName: name,
