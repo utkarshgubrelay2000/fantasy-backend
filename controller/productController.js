@@ -10,6 +10,7 @@ exports.postProductAd = (req, res) => {
   const {
     email,
     category,
+    subCategory,
     images,
     userId,
     mobileNumber,
@@ -44,6 +45,7 @@ exports.postProductAd = (req, res) => {
           const today = new Date();
           const newProduct = new productSchema({
             category: category,
+            subCategory:category,
             images: images,
             mobileNumber: mobileNumber,
             productName: name,
@@ -115,4 +117,25 @@ exports.getCategories=(req,res)=>{
    }).catch(err=>{
      res.status(400).json({error:err})
    })
+ }
+ exports.productBySubCategory=(req,res)=>{
+   const {categoryId,subCategory}=req.body
+   productSchema.aggregate([
+    {
+      $lookup: {
+        from: "categoryModel",
+        localField: subCategory,
+        foreignField: "subCategory",
+        as: "categoryDoc",
+      },
+    },
+    {
+      $unwind: "$categoryDoc",
+    },
+    {
+      $group: { _id: "$categoryDoc", products: { $push: "$$ROOT" } },
+     },
+  ]).then((products) => {
+    res.json(products);
+  });
  }

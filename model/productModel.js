@@ -4,10 +4,12 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  category:[ {
-  subCategory:{type: String}
-  }], RentalType:{type:String},
-  content:{type:String},
+  category: {
+    type:String
+  },
+  subCategory:{type: String},
+     content:{type:String},
+  RentalType:{type:String},
   address: {
     pincode:{
       type:Number,
