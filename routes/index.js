@@ -40,7 +40,7 @@ router.patch("/editUserProfile", user.editUserProfile, (err) => {
 });
 router.put('/addMobileNumber',user.addMobileNumber)
 router.put('/addAddress',user.addAddress)
-router.post('/productBySubCategory',product.productBySubCategory)
+router.get('/productBySubCategory/:subCategory',product.productBySubCategory)
 
 /// All  PRODUCT CONTROLLER GET REQUEST
 

@@ -110,32 +110,43 @@ exports.getCategories=(req,res)=>{
    })
  }
  exports.getProductByCategory=(req,res)=>{
-   console.log(req.params.category)
-   const category=req.params.category
-   productSchema.find({category:category,verified:true}).then(product=>{
-     res.json(product)
-   }).catch(err=>{
-     res.status(400).json({error:err})
-   })
+  //console.log(req.params.category)
+  const categoryId=req.params.category
+  category.findOne({_id:categoryId}).then(foundCategory=>{
+    productSchema.aggregate([{
+      $match:{category:foundCategory.categoryName}
+    }]).then(show=>{
+      console.log(show)
+      res.json(show)
+    })
+  })
+  // productSchema.find({category:category,verified:true}).then(product=>{
+  //   res.json(product)
+  // }).catch(err=>{
+  //   res.status(400).json({error:err})
+  // })
+
+  //  console.log(req.params.category)
+  //  const category=req.params.category
+  //  productSchema.find({category:category,verified:true}).then(product=>{
+  //    res.json(product)
+  //  }).catch(err=>{
+  //    res.status(400).json({error:err})
+  //  })
  }
  exports.productBySubCategory=(req,res)=>{
-   const {categoryId,subCategory}=req.body
-   productSchema.aggregate([
-    {
-      $lookup: {
-        from: "categoryModel",
-        localField: subCategory,
-        foreignField: "subCategory",
-        as: "categoryDoc",
-      },
-    },
-    {
-      $unwind: "$categoryDoc",
-    },
-    {
-      $group: { _id: "$categoryDoc", products: { $push: "$$ROOT" } },
-     },
-  ]).then((products) => {
-    res.json(products);
+   const {subCategory}=req.params
+   productSchema.find({subCategory:subCategory}).then((products) => {
+   // res.json(products);
   });
+  productSchema.aggregate([
+    // {
+    //   $match:{subCategory:subCategory}
+    // },{
+    //   $group:{_id:"$subCategory",products:{$push:{name:"$productName"}}}
+    // }
+    {$project:{productName:1}}
+  ]).then(found=>{
+res.json(found)
+  })
  }
