@@ -113,6 +113,7 @@ exports.getCategories=(req,res)=>{
   //console.log(req.params.category)
   const categoryId=req.params.category
   category.findOne({_id:categoryId}).then(foundCategory=>{
+    if(foundCategory){
     productSchema.aggregate([{
       $match:{category:foundCategory.categoryName}
     }]).then(show=>{
@@ -120,9 +121,13 @@ exports.getCategories=(req,res)=>{
       res.json(show)
     }).catch(err=>{
       res.status(400).json({error:err})
-    })
+    }) }
+    else{
+
+      res.status(400).json({error:'category id is not valid'})
+    }
   }).catch(err=>{
-      res.status(400).json({error:err})
+    res.status(400).json({error:err})
     })
   // productSchema.find({category:category,verified:true}).then(product=>{
   //   res.json(product)
