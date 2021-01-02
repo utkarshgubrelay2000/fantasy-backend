@@ -116,10 +116,14 @@ exports.getCategories=(req,res)=>{
     productSchema.aggregate([{
       $match:{category:foundCategory.categoryName}
     }]).then(show=>{
-      console.log(show)
+     // console.log(show)
       res.json(show)
+    }).catch(err=>{
+      res.status(400).json({error:err})
     })
-  })
+  }).catch(err=>{
+      res.status(400).json({error:err})
+    })
   // productSchema.find({category:category,verified:true}).then(product=>{
   //   res.json(product)
   // }).catch(err=>{
