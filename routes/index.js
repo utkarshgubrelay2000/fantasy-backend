@@ -28,6 +28,9 @@ router.post("/signup", user.Signup, (err) => {
 router.post("/signin", user.Signin, (err) => {
   console.log("error in signin", err);
 });
+router.post("/SigninWithGoogle", user.SigninWithGoogle, (err) => {
+  console.log("error in signin", err);
+});
 
 /* Get User by Id. (accesss:user) */
 

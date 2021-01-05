@@ -49,7 +49,7 @@ exports.Signup = (req, res) => {
           const token = jwt.sign({ secretId: user._id }, process.env.JWT_SECRET);
           res.json({
             code: "SignUp Successfull ",
-            token:token
+            token:token,userId:user._id
           }); })
         .catch((err) => {
           //   console.log(err.message)
@@ -74,7 +74,7 @@ exports.Signup = (req, res) => {
             const token = jwt.sign({ secretId: user._id }, process.env.JWT_SECRET);
             res.json({
               code: "SignSuccess",
-              token:token
+              token:token,userId:user._id
             });
           } else {
             res.status(400).json({ error: "Invalid email or password" });
@@ -90,7 +90,20 @@ exports.Signup = (req, res) => {
       }
     });
   };
-  
+  exports.SigninWithGoogle=(req,res)=>{
+    userModel.findOne({uid:req.body.uid}).then(foundUser=>{
+      if(foundUser){
+        const token = jwt.sign({ secretId: foundUser._id }, process.env.JWT_SECRET);
+        res.json({
+          code: "SignSuccess",
+          token:token,userId:foundUser._id
+        });
+      }
+      else{
+res.status(404).json('not found')
+      }
+    })
+  }
 /////////------  getAllUser ----//////////////// 
 exports.getAllUsers=(req,res)=>{
   userModel.find({},{_id:0}).then(user=>{
