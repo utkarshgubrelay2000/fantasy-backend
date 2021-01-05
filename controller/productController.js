@@ -99,7 +99,7 @@ exports.getCategories=(req,res)=>{
  exports.getProductByUserId=(req,res)=>{
    /// GET ALL PRODUCTS BY USERID{PARTICULAR USER} AND IT SHOULD BE VERIFIED
   const {userId} =req.params
-   productSchema.find({userId:userId,verified:true}).then(product=>{
+   productSchema.find({userId:userId,verified:true}).populate('userId').then(product=>{
      res.json(product)
    }).catch(err=>{
      res.status(400).json({error:err})
@@ -107,7 +107,7 @@ exports.getCategories=(req,res)=>{
  }
  exports.getProductByProductId=(req,res)=>{
   const {productId}=req.params
-   productSchema.find({_id:productId,verified:true}).then(product=>{
+   productSchema.find({_id:productId,verified:true}).populate('userId').then(product=>{
      res.json(product)
    }).catch(err=>{
      res.status(400).json({error:err})
@@ -119,16 +119,7 @@ exports.getCategories=(req,res)=>{
   category.findOne({_id:categoryId}).then(foundCategory=>{
     if(foundCategory){
       try {
-        productSchema.aggregate([{
-            $lookup:
-            {
-              from: "users",
-              localField: "userId",
-              foreignField: "_id",
-              as: "userDetails"
-            },
-          }, { $match:{category:foundCategory.categoryName,verified:true}}
-        ]).then(show=>{
+        productSchema.find({category:foundCategory.categoryName,verified:true}).populate('userId').then(show=>{
          // console.log(show)
           res.json(show)
         }).catch(err=>{
@@ -161,7 +152,7 @@ exports.getCategories=(req,res)=>{
  }
  exports.productBySubCategory=(req,res)=>{
    const {subCategory}=req.params
-   productSchema.find({subCategory:subCategory}).then((products) => {
+   productSchema.find({subCategory:subCategory,verified:true}).populate('userId').then((products) => {
    // res.json(products);
   });
   productSchema.aggregate([
@@ -245,7 +236,7 @@ exports.deleteUserProduct=(req,res)=>{
   })
    }
    exports.getMyPostedProduct=(req,res)=>{
-     productSchema.find({userId:req.params.id}).then(found=>{
+     productSchema.find({userId:req.params.id}).populate('userId').then(found=>{
        let verified=[]
        let Unverified=[]
 

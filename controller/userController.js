@@ -5,11 +5,7 @@ var validate=require('validate.js')
 /////////------ User SignUp ----////////////////
 exports.Signup = (req, res) => {
   const { name, email, password,uid } = req.body;
-  /**  name:string, 
-   * mobileNumber:number,
-   * profileUrl:string,
-   * password:string,
-   * address:Object */
+
   let validation = validate(req.body, {
     name: {
       presence: true,
@@ -60,23 +56,7 @@ exports.Signup = (req, res) => {
  }};
  /////////------ User SignIn ----////////////////
  exports.Signin = (req, res) => {
-  const { email, password } = req.body;
-  let validation = validate(req.body, {
-    email: {
-      presence: true,
-      
-    },
-    password: {
-      presence: true,
-    },
-  });
-  
-  if (validation) {
-    res.status(400).json({ error: validation });
-    return console.log(validation);
-  }
-  else{
-    
+  const { email, password } = req.body;    
     userModel.findOne({ email: email }).then((user) => {
       if (user) {
         // console.log(password,user.password)
@@ -103,7 +83,7 @@ exports.Signup = (req, res) => {
         .json({ error: "User not found of " + email + " address" });
       }
     });
-  }};
+  };
   
 /////////------  getAllUser ----//////////////// 
 exports.getAllUsers=(req,res)=>{
