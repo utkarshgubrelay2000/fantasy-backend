@@ -4,7 +4,7 @@ const bcryptjs=require('bcryptjs');
 var validate=require('validate.js')
 /////////------ User SignUp ----////////////////
 exports.Signup = (req, res) => {
-  const { name, email, password,uid } = req.body;
+  const { name, email, password } = req.body;
 
   let validation = validate(req.body, {
     name: {
@@ -35,11 +35,17 @@ exports.Signup = (req, res) => {
         email: email,
         password: hashedpassword,
         name: name,
-        uid:uid
+        
       });
       newUser
         .save()
         .then((user) => {
+          if(req.body.uid){
+            user.uid=req.body.ui
+          }
+          else{
+            user.uid=user._id
+          }
           const token = jwt.sign({ secretId: user._id }, process.env.JWT_SECRET);
           res.json({
             code: "SignUp Successfull ",
