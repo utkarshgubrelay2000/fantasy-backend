@@ -117,7 +117,7 @@ exports.getCategories=(req,res)=>{
   category.findOne({_id:categoryId}).then(foundCategory=>{
     if(foundCategory){
     productSchema.aggregate([{
-      $match:{category:foundCategory.categoryName}
+      $match:{category:foundCategory.categoryName,verified:true}
     }]).then(show=>{
      // console.log(show)
       res.json(show)
