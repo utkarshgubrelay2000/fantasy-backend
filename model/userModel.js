@@ -35,8 +35,12 @@ const userSchema = new mongoose.Schema({
   profileImg:{
       type:String
   },
-  uid:{type:String}
-
+  uid:{type:String},
+  myWishlist:[{
+    _id:false,
+    product:{type:mongoose.Schema.Types.ObjectId,ref:'Product'}
+  }
+  ]
      /*               ResetToken: {
                         type: String,
                     },
