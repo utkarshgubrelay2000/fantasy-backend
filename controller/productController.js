@@ -236,3 +236,32 @@ else{
     res.status(404).json("something went wrong")
   })
 }
+exports.deleteUserProduct=(req,res)=>{
+  const {productId,userId}=req.body
+  productSchema.findOneAndDelete({_id:productId,userId:userId}).then(sucess=>{
+    res.json('success')
+  }).catch(err=>{
+    res.status(400).json('something wentwrong with data base')
+  })
+   }
+   exports.getMyPostedProduct=(req,res)=>{
+     productSchema.find({userId:req.params.id}).then(found=>{
+       let verified=[]
+       let Unverified=[]
+
+       found.map(products=>{
+         if(products.verified){
+           verified.push(products)
+         }
+         else{
+           Unverified.push(products)
+         }
+
+       })
+       setTimeout(() => {
+         res.json({verifiedProducts:verified,UnverifiedProducts:Unverified})
+       }, 2000);
+     }).catch(err=>{
+      res.status(400).json('something wentwrong with data base')
+    })
+   }

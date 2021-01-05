@@ -72,4 +72,7 @@ router.post("/postProduct", product.postProductAd, (err) => {
   console.log("error in getting product details", err);
 });
 
+router.get('/getMyPostedProduct/:id',product.getMyPostedProduct)
+
+ router.delete('/deleteUserProduct',product.deleteUserProduct)
 module.exports = router;
