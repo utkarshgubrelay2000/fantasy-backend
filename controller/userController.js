@@ -4,7 +4,7 @@ const bcryptjs=require('bcryptjs');
 var validate=require('validate.js')
 /////////------ User SignUp ----////////////////
 exports.Signup = (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password,profileImg } = req.body;
 
   let validation = validate(req.body, {
     name: {
@@ -35,6 +35,7 @@ exports.Signup = (req, res) => {
         email: email,
         password: hashedpassword,
         name: name,
+        profileImg:profileImg
         
       });
       newUser
@@ -105,6 +106,7 @@ exports.Signup = (req, res) => {
         email: req.body.email,
         password: hashedpassword,
         name: req.body.name, 
+        profileImg:req.body.profileImg
       });
       newUser
         .save()
