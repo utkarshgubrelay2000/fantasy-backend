@@ -214,7 +214,8 @@ res.json("saved")
     })
   }
   exports.getMyWishlist=(req,res)=>{
-    userModel.findOne({_id:req.params.id}).populate('myWishlist.product').then(foundUser=>{
+    userModel.findOne({_id:req.params.id}).populate('myWishlist.product').populate({path:'myWishlist.product'
+   ,model:"Product" ,populate:{path:'userId',model:'User'}}).then(foundUser=>{
 if(foundUser){
  res.json(foundUser.myWishlist)
 }else{
