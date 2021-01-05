@@ -42,6 +42,7 @@ exports.postProductAd = (req, res) => {
         if (!user) {
           res.status(404).json({ error: "User not found Can not add Product" });
         } else {
+          let address=req.body.address|| user.userId.address
           const today = new Date();
           const newProduct = new productSchema({
             category: category,
@@ -55,6 +56,7 @@ exports.postProductAd = (req, res) => {
             price: price,
             RentalType:rentalType,
             content:content,
+            address:address,
             date:
               today.getFullYear() +
               "-" +
