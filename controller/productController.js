@@ -2,6 +2,7 @@ const userModel = require("../model/userModel");
 const productSchema = require("../model/productModel");
 var validate = require("validate.js");
 const category = require("../model/categoryModel");
+const { populate } = require("../model/userModel");
 
 /// POST AD.. REQUIRES DETAILS{BODY}
 exports.postProductAd = (req, res) => {
@@ -116,14 +117,26 @@ exports.getCategories=(req,res)=>{
   const categoryId=req.params.category
   category.findOne({_id:categoryId}).then(foundCategory=>{
     if(foundCategory){
-    productSchema.aggregate([{
-      $match:{category:foundCategory.categoryName,verified:true}
-    }]).then(show=>{
-     // console.log(show)
-      res.json(show)
-    }).catch(err=>{
-      res.status(400).json({error:err})
-    }) }
+      try {
+        productSchema.aggregate([{
+            $lookup:
+            {
+              from: "users",
+              localField: "userId",
+              foreignField: "_id",
+              as: "userDetails"
+            },
+          }, { $match:{category:foundCategory.categoryName,verified:true}}
+        ]).then(show=>{
+         // console.log(show)
+          res.json(show)
+        }).catch(err=>{
+          res.status(400).json({error:err})
+        }) }
+       catch (error) {
+        console.log(error)
+      }
+    }
     else{
 
       res.status(400).json({error:'category id is not valid'})
