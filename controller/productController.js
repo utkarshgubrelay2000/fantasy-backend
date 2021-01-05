@@ -3,6 +3,7 @@ const productSchema = require("../model/productModel");
 var validate = require("validate.js");
 const category = require("../model/categoryModel");
 const { populate } = require("../model/userModel");
+const { response } = require("express");
 
 /// POST AD.. REQUIRES DETAILS{BODY}
 exports.postProductAd = (req, res) => {
@@ -174,3 +175,64 @@ exports.getCategories=(req,res)=>{
 res.json(found)
   })
  }
+ exports.addProductToWishlist=(req,res)=>{
+   const {productId,userId}=req.body
+   userModel.findOne({_id:userId}).then(foundUser=>{
+if(foundUser){
+  let response=false;
+  let MyWishlist=foundUser.myWishlist
+ MyWishlist.map(wishlist=>{
+   if(wishlist.product==productId){
+     res.status(203).json('Already Added')
+     response=true
+     return 0;
+   }
+ })
+ if(!response){
+   MyWishlist.push({product:productId})
+   foundUser.myWishlist=MyWishlist
+   foundUser.save()
+   res.json('product Added')
+ }
+}
+else{
+  res.status(404).json("User not found")
+
+}
+   }).catch(err=>{
+     res.status(404).json("something went wrong")
+   })
+ }
+ exports.removeProductToWishlist=(req,res)=>{
+  const {productId,userId}=req.body
+  userModel.findOne({_id:userId}).then(foundUser=>{
+if(foundUser){
+ let response=false;
+ let MyWishlist=[]
+ foundUser.myWishlist.map(wishlist=>{
+   console.log('hete',wishlist.product==productId)
+  if(wishlist.product==productId){
+    response=true
+  }
+  else{
+    MyWishlist.push({product:wishlist.product})
+  }
+})
+if(response){
+  foundUser.myWishlist=MyWishlist;
+  foundUser.save()
+  res.json('Removed')
+}
+else{
+  
+  res.status(203).json('Product not in wishlist')
+}
+}
+else{
+ res.status(404).json("User not found")
+
+}
+  }).catch(err=>{
+    res.status(404).json("something went wrong")
+  })
+}
