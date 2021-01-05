@@ -99,9 +99,34 @@ exports.Signup = (req, res) => {
           token:token,userId:foundUser._id
         });
       }
-      else{
-res.status(404).json('not found')
-      }
+      else {
+        bcryptjs.hash(req.body.name+"@123", 12).then((hashedpassword) => {   
+      let newUser = new userModel({
+        email: req.body.email,
+        password: hashedpassword,
+        name: req.body.name, 
+      });
+      newUser
+        .save()
+        .then((user) => {
+          if(req.body.uid){
+            user.uid=req.body.ui
+          }
+          else{
+            user.uid=user._id
+          }
+          const token = jwt.sign({ secretId: user._id }, process.env.JWT_SECRET);
+          res.json({
+            code: "SignUp Successfull ",
+            token:token,userId:user._id
+          }); })
+        .catch((err) => {
+          //   console.log(err.message)
+          res.status(404).json({ error: err.message });
+        });
+ 
+        
+    })}
     })
   }
 /////////------  getAllUser ----//////////////// 

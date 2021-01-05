@@ -2,8 +2,7 @@ const userModel = require("../model/userModel");
 const productSchema = require("../model/productModel");
 var validate = require("validate.js");
 const category = require("../model/categoryModel");
-const { populate } = require("../model/userModel");
-const { response } = require("express");
+
 
 /// POST AD.. REQUIRES DETAILS{BODY}
 exports.postProductAd = (req, res) => {
