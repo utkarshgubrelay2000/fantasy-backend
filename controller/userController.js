@@ -214,3 +214,15 @@ res.json("saved")
       res.status(404).json(err)
     })
   }
+  exports.getMyWishlist=(req,res)=>{
+    userModel.findOne({_id:req.params.id}).populate('myWishlist.product').then(foundUser=>{
+if(foundUser){
+ res.json(foundUser.myWishlist)
+}else{
+  res.status(400).json('User Not Found')
+
+}
+    }).catch(err=>{
+      res.status(400).json('something went wrong with db')
+    })
+  }

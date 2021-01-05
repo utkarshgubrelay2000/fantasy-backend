@@ -40,6 +40,8 @@ router.patch("/editUserProfile", user.editUserProfile, (err) => {
 });
 router.put('/addMobileNumber',user.addMobileNumber)
 router.put('/addAddress',user.addAddress)
+router.put('/addProductToWishlist',product.addProductToWishlist)
+router.put('/removeProductToWishlist',product.removeProductToWishlist)
 router.get('/productBySubCategory/:subCategory',product.productBySubCategory)
 
 /// All  PRODUCT CONTROLLER GET REQUEST
@@ -51,7 +53,7 @@ router.get("/getAllCatgories", product.getCategories, (err) => {
 });
 
 /*   All Products */
-
+router.get('/getMyWishlist/:id',user.getMyWishlist)
 router.get("/getAllProducts", product.getAllProducts, (err) => {
   console.log("error in Getting user details", err);
 });
