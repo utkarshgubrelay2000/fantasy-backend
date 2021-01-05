@@ -40,7 +40,8 @@ const productSchema = new mongoose.Schema({
  },
  userId:{
      required:true,
-     type:Object
+     type:mongoose.Schema.Types.ObjectId,
+     ref:"User"
  },
  mobileNumber:{
      required:true,

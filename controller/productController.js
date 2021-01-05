@@ -75,7 +75,7 @@ exports.postProductAd = (req, res) => {
 /// GET ALL PRODUCTS WHICH ARE VERIFIED
 
 exports.getAllProducts=(req,res)=>{
-    productSchema.find({verified:true}).sort({_id:-1}).then(allProducts=>{
+    productSchema.find({verified:true}).populate('userId').sort({_id:-1}).then(allProducts=>{
             res.json(allProducts)
     }).catch(err=>{
         res.status(404).json({ error: "something went wrong" + err.message });
