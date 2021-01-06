@@ -76,7 +76,7 @@ exports.Signup = (req, res) => {
             const token = jwt.sign({ secretId: user._id }, process.env.JWT_SECRET);
             res.json({
               code: "SignSuccess",
-              token:token,userId:user._id
+              token:token,userId:user._id,userDetails:user
             });
           } else {
             res.status(400).json({ error: "Invalid email or password" });
