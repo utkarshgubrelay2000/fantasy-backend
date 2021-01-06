@@ -35,7 +35,7 @@ exports.Signup = (req, res) => {
         email: email,
         password: hashedpassword,
         name: name,
-        profileImg:profileImage,phoneNumber:phoneNumber
+        profileImage:profileImage,phoneNumber:phoneNumber
         
       });
       newUser
