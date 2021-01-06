@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
     pincode:{
       type:Number,
     },
-    Adresss_line_1:{
+    Address_line_1:{
       type:String
     },
     Adresss_line_2:{
