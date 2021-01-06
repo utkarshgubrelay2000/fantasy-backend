@@ -93,8 +93,8 @@ exports.Signup = (req, res) => {
     });
   };
   exports.SigninWithGoogle=(req,res)=>{
-    console.log(req.body.uid)
-    userModel.findOne({uid:req.body.userid}).then(foundUser=>{
+   // console.log(req.body.uid)
+    userModel.findOne({userid:req.body.userid}).then(foundUser=>{
       if(foundUser){
        // console.log(foundUser)
         const token = jwt.sign({ secretId: foundUser._id }, process.env.JWT_SECRET);
