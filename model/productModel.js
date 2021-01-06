@@ -7,6 +7,10 @@ const productSchema = new mongoose.Schema({
   category: {
     type:String
   },
+  description:{
+  
+    type:String
+  },
   subCategory:{type: String},
      content:{type:String},
   RentalType:{type:String},
