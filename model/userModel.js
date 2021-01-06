@@ -29,13 +29,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  mobileNumber: {
+  phoneNumber: {
     type: Number,
   },
-  profileImg:{
+  profileImage:{
       type:String
   },
-  uid:{type:String},
+  userid:{type:String},
   myWishlist:[{
     _id:false,
     product:{type:mongoose.Schema.Types.ObjectId,ref:'Product'}

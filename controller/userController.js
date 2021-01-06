@@ -4,7 +4,7 @@ const bcryptjs=require('bcryptjs');
 var validate=require('validate.js')
 /////////------ User SignUp ----////////////////
 exports.Signup = (req, res) => {
-  const { name, email, password,profileImg } = req.body;
+  const { name, email, password,profileImage,phoneNumber } = req.body;
 
   let validation = validate(req.body, {
     name: {
@@ -35,17 +35,17 @@ exports.Signup = (req, res) => {
         email: email,
         password: hashedpassword,
         name: name,
-        profileImg:profileImg
+        profileImg:profileImage,phoneNumber:phoneNumber
         
       });
       newUser
         .save()
         .then((user) => {
           if(req.body.uid){
-            user.uid=req.body.ui
+            user.userid=req.body.userid
           }
           else{
-            user.uid=user._id
+            user.userid=user._id
           }
           user.save()
           const token = jwt.sign({ secretId: user._id }, process.env.JWT_SECRET);
@@ -94,7 +94,7 @@ exports.Signup = (req, res) => {
   };
   exports.SigninWithGoogle=(req,res)=>{
     console.log(req.body.uid)
-    userModel.findOne({uid:req.body.uid}).then(foundUser=>{
+    userModel.findOne({uid:req.body.userid}).then(foundUser=>{
       if(foundUser){
        // console.log(foundUser)
         const token = jwt.sign({ secretId: foundUser._id }, process.env.JWT_SECRET);
@@ -109,16 +109,18 @@ exports.Signup = (req, res) => {
         email: req.body.email,
         password: hashedpassword,
         name: req.body.name, 
-        profileImg:req.body.profileImg
+        profileImg:req.body.profileImage,
+        phoneNumber:req.body.prphoneNumber,
+
       });
       newUser
         .save()
         .then((user) => {
           if(req.body.uid){
-            user.uid=req.body.ui
+            user.userid=req.body.userid
           }
           else{
-            user.uid=user._id
+            user.userid=user._id
           }
           user.save()
           const token = jwt.sign({ secretId: user._id }, process.env.JWT_SECRET);
