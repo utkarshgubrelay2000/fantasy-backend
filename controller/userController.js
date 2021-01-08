@@ -116,10 +116,10 @@ exports.Signup = (req, res) => {
         .save()
         .then((user) => {
           if(req.body.userId){
-            user.userid=req.body.userId
+            user.userId=req.body.userId
           }
           else{
-            user.userid=user._id
+            user.userId=user._id
           }
           user.save()
           const token = jwt.sign({ secretId: user._id }, process.env.JWT_SECRET);
