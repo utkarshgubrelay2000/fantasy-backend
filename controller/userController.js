@@ -111,13 +111,12 @@ exports.Signup = (req, res) => {
         name: req.body.name, 
         profileImg:req.body.profileImage,
         phoneNumber:req.body.phoneNumber,
-
       });
       newUser
         .save()
         .then((user) => {
-          if(req.body.userid){
-            user.userid=req.body.userid
+          if(req.body.userId){
+            user.userid=req.body.userId
           }
           else{
             user.userid=user._id
