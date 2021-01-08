@@ -94,7 +94,7 @@ exports.Signup = (req, res) => {
   };
   exports.SigninWithGoogle=(req,res)=>{
     console.log(req.body)
-    userModel.findOne({userid:req.body.userid}).then(foundUser=>{
+    userModel.findOne({userId:req.body.userId}).then(foundUser=>{
       if(foundUser){
        // console.log(foundUser)
         const token = jwt.sign({ secretId: foundUser._id }, process.env.JWT_SECRET);

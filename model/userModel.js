@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
   profileImage:{
       type:String
   },
-  userid:{type:String},
+  userId:{type:String},
   myWishlist:[{
     _id:false,
     product:{type:mongoose.Schema.Types.ObjectId,ref:'Product'}
