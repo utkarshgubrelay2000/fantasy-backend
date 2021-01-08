@@ -93,7 +93,7 @@ exports.Signup = (req, res) => {
     });
   };
   exports.SigninWithGoogle=(req,res)=>{
-   // console.log(req.body.uid)
+    console.log(req.body)
     userModel.findOne({userid:req.body.userid}).then(foundUser=>{
       if(foundUser){
        // console.log(foundUser)
