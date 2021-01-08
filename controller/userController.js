@@ -225,12 +225,9 @@ res.json("saved")
     })
   }
   exports.addAddress=(req,res)=>{
-    const {pincode,State,City,Addresss_line_1,id,Country}=req.body
+    const {City,Addresss_line_1,id}=req.body
     let Address={
-      Pincode:pincode,
       City:City,
-      State:State,
-      Country:Country,
       Addresss_line_1:Addresss_line_1
     }
     userModel.findOne({_id:id}).then(foundUser=>{
