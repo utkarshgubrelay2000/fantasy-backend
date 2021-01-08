@@ -110,7 +110,7 @@ exports.Signup = (req, res) => {
         password: hashedpassword,
         name: req.body.name, 
         profileImg:req.body.profileImage,
-        phoneNumber:req.body.prphoneNumber,
+        phoneNumber:req.body.phoneNumber,
 
       });
       newUser
