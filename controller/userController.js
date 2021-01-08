@@ -116,7 +116,7 @@ exports.Signup = (req, res) => {
       newUser
         .save()
         .then((user) => {
-          if(req.body.uid){
+          if(req.body.userid){
             user.userid=req.body.userid
           }
           else{
