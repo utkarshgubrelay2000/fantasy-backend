@@ -95,7 +95,7 @@ exports.getAllProducts=(req,res)=>{
 }
 exports.getCategories=(req,res)=>{
   /// AGGREAGATE FUNCTION WILL HELP US GET SINGLE SINGLE CATEGORIES.. EXAMPLE PRODUCT A AND B HAVE CATEORY CAR THEN IT WILL ONLY GIVE US ONE CATEGORY.. COMMON
-    category.find({}).sort({_id:-1}).then(found=>{
+    category.find({}).then(found=>{
       res.json(found)
     }).catch(err=>{
 

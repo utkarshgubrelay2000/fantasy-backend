@@ -138,7 +138,7 @@ exports.Signup = (req, res) => {
   }
 /////////------  getAllUser ----//////////////// 
 exports.getAllUsers=(req,res)=>{
-  userModel.find({},{_id:0}).then(user=>{
+  userModel.find({},{_id:0}).sort({_id:-1}).then(user=>{
     res.json(user)
   }).catch(err=>{
     res.status(404).json('Something went wrong'+ err)
