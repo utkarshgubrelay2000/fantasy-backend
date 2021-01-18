@@ -40,14 +40,10 @@ const userSchema = new mongoose.Schema({
     _id:false,
     product:{type:mongoose.Schema.Types.ObjectId,ref:'Product'}
   }
-  ]
-     /*               ResetToken: {
+  ],
+                   otp: {
                         type: String,
                     },
-                    expireToken: {
-                        type: Date,
-                    },
-*/
  
 });
 

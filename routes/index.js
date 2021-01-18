@@ -31,6 +31,8 @@ router.post("/signin", user.Signin, (err) => {
 router.post("/SigninWithGoogle", user.SigninWithGoogle, (err) => {
   console.log("error in signin", err);
 });
+router.get('/forgotPassword/:email',user.ForgetPassword)
+router.post('/newPassword',user.newPassword)
 
 /* Get User by Id. (accesss:user) */
 
