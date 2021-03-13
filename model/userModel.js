@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
   phoneNumber: {
     type: Number,
   },
-  profileImage:{
+  profileUrl:{
       type:String
   },
   userId:{type:String},

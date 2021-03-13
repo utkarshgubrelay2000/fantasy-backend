@@ -435,7 +435,7 @@ exports.editUserProfile = (req, res) => {
             )
             .then((user) => {
               if (user) {
-                res.json({ message: "User Details Updated" });
+                res.json(user);
               }
             })
             .catch((err) => {
